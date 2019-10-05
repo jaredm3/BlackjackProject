@@ -1,43 +1,42 @@
 package com.skilldistillery.Blackjack.blackjack;
 
-import com.skilldistillery.Blackjack.common.Card;
 
-public class Dealer {
+public class Dealer extends Person{
 
 	// F I E L D S 
 	//private List<Card> dealerHand;
-	private BlackjackHand hand;
+	//private BlackjackHand hand;
 	
 	// C O N S T R U C T O R
-	public Dealer() {
-		hand = new BlackjackHand();
+	public Dealer(String type) {
+		super(type);
 	}
 	
-	public void addCardToHand(Card c) {
-		hand.addCard(c);
-	}
-	
-	public void clearHand() {
-		this.hand.clear();
-	}
-	
-	public BlackjackHand getHand() {
-		return this.hand;
-	}
-	
-	public int checkHand() {
-		return hand.getHandValue();
-	}
+//	public void addCardToHand(Card c) {
+//		hand.addCard(c);
+//	}
+//	
+//	public void clearHand() {
+//		this.hand.clear();
+//	}
+//	
+//	public BlackjackHand getHand() {
+//		return this.hand;
+//	}
+//	
+//	public int checkHand() {
+//		return hand.getHandValue();
+//	}
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Dealer hand= ");
-		builder.append(hand);
+		builder.append(this.getHand());
 		return builder.toString();
 	}
 	
-	public Card showOneCard() {
-		return hand.getFirstCard();
-	}
+//	public Card showOneCard() {
+//		return hand.getFirstCard();
+//	}
 }

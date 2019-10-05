@@ -1,44 +1,69 @@
 package com.skilldistillery.Blackjack.blackjack;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import com.skilldistillery.Blackjack.common.Card;
 import com.skilldistillery.Blackjack.common.Deck;
 
 public class BlackjackBrain {
 
 	// F I E L D S
-	Deck deck;
-	Player player;
-	Dealer dealer;
+	private Deck deck;
+	private Person player;
+	private Person dealer;
+	private Person cardCountingPlayer;
+	private List<Person> players;
+	private List<Card> dealtCards;
+
 	private boolean playAgain = false;
 	private boolean winner = false;
 
 	public BlackjackBrain() {
 		deck = new Deck();
-		player = new Player();
-		dealer = new Dealer();
+		player = new Player("Player");
+		dealer = new Dealer("Dealer");
+		dealtCards = new ArrayList<>();
+		players = new ArrayList<>();
+		players.add(player);
+		players.add(dealer);
+	}
+
+	public void setUpGame() {
+		cardCountingPlayer = new CardCountingPlayer("CardCounter");
+		players.add(cardCountingPlayer);
 	}
 
 	public void dealCards() {
-		player.addCardToHand(deck.dealCard());
-		dealer.addCardToHand(deck.dealCard());
-		player.addCardToHand(deck.dealCard());
-		dealer.addCardToHand(deck.dealCard());
+
+		if (deck.checkDeckSize() <= 9) {
+			System.out.println("OUTA CARDS..\n");
+			System.out.println("Creating new deck..\n");// idkkkkkkkkk
+			deck = new Deck();
+		}
+
+		for (int i = 0; i < 2; i++) {
+			for (Person p : players) {
+				Card cHolder = deck.dealCard();
+				p.addCardToHand(cHolder);
+				dealtCards.add(cHolder);
+			}
+		}
 	}
 
 	public boolean checkWinnerBeforePlay() {
-		if (player.getHand().isBlackJack()) {
-			System.out.println("Player BLACKJACK");
-			winner = true;
-			return true;
-		} else if (dealer.getHand().isBlackJack()) {
-			System.out.println("Dealer BLACKJACK");
-			System.out.println(dealer);
-			winner = true;
-			return true;
-		} else {
-			return false;
+
+		for (Person p : players) {
+
+			if (p.getHand().isBlackJack()) {
+				System.out.println("Player " + p.getType() + "BlackJACKK!");
+				System.out.println(p);
+				winner = true;
+				return true;
+			}
 		}
+		return false;
 	}
 
 	public boolean getPlayAgain() {
@@ -46,20 +71,37 @@ public class BlackjackBrain {
 	}
 
 	public void showCards() {
-		System.out.println(player + " " + player.checkHand());
-		System.out.println("Dealer hand= [" + dealer.showOneCard() + ", xxxxxxx]");
+
+		for (Person p : players) {
+			if (p.getType().equals("Dealer")) {// instance of?
+				System.out.println("Dealer hand= [" + p.showOneCard() + ", xxxxxxx]");
+			} else {
+				System.out.println(p + " " + p.getType() + " " + p.checkHand());
+			}
+		}
+		System.out.println();
 	}
 
 	public void gamePlay(Scanner kb) {
 
 		while (!winner) {
+
+			if (players.size() == 3) {
+				if (cardCountingPlayer instanceof CardCountingPlayer) {
+					((CardCountingPlayer) cardCountingPlayer).playCardCounter(dealtCards, cardCountingPlayer.getHand(),
+							deck);
+				}
+			}
+
 			System.out.println("Hit or Stay? ");
 			String userHitStay = kb.nextLine();
 
 			switch (userHitStay) {
 
 			case "hit":
-				player.addCardToHand(deck.dealCard());
+				Card cHolder2 = deck.dealCard();
+				player.addCardToHand(cHolder2);
+				dealtCards.add(cHolder2);
 				System.out.println(player.getHand().toString());
 				System.out.println("Player hand: " + player.checkHand());
 
@@ -84,6 +126,11 @@ public class BlackjackBrain {
 		if (userPlayAgain.equals("y")) {
 			player.clearHand();
 			dealer.clearHand();
+			try {
+				cardCountingPlayer.clearHand();
+			} catch (NullPointerException e) {
+			}
+
 			playAgain = true;
 			winner = false;
 		} else {
@@ -99,24 +146,24 @@ public class BlackjackBrain {
 			System.out.println("Player BUST\nDealer wins");
 			winner = true;
 		} else if (player.getHand().isBlackJack()) {
-			System.out.println("PLayer Wins! ?Blackjack?");
+			System.out.println("21! PLayer Wins!");
 			winner = true;
 		}
 	}
 
 	public void checkDealerHand() {
 		if (dealer.getHand().isBlackJack()) {
-			System.out.println("21!! Dealer Wins! ?BlackJack?");
+			System.out.println("21!! Dealer Wins!");
 			winner = true;
 		}
 
 		else if (dealer.checkHand() > player.checkHand()) {
-			System.out.println("DEALERR wins!");
+			System.out.println("Dealer wins!");
 			winner = true;
 		}
 
 		else if (dealer.checkHand() == player.checkHand()) {
-			System.out.println("PUSHhhhhhh");
+			System.out.println("Pushhhh");
 			winner = true;// end game.. not really 'winner'
 		}
 
@@ -134,36 +181,40 @@ public class BlackjackBrain {
 	public void dealerHitLogic() {
 
 		while (dealer.checkHand() < 17 && (dealer.checkHand() < player.checkHand())) {
-			dealer.addCardToHand(deck.dealCard());
+			Card cHolder3 = deck.dealCard();
+			dealer.addCardToHand(cHolder3);
+			dealtCards.add(cHolder3);
 			System.out.println("Dealer hits..\n");
 			System.out.println(dealer);
 
 			if (dealer.getHand().isBust()) {
 				System.out.println("Dealer BUSTSS! Player WINS!");
+				try {
+					if (!cardCountingPlayer.getHand().isBust()) {
+						System.out.println("CardCounter Wins!");
+					}
+				} catch (Exception e) {
+				}
+
 				winner = true;
 				break;
-			}
-			else if (dealer.getHand().isBlackJack()) {
-				System.out.println("Dealer Wins! ?Blackjack?");
+			} else if (dealer.getHand().isBlackJack()) {
+				System.out.println("Dealer Wins!");
 				winner = true;
 				break;
-			}
-			else if (dealer.checkHand() > player.checkHand()) {
+			} else if (dealer.checkHand() > player.checkHand()) {
 				System.out.println("Dealer WINS!");
 				winner = true;
 				break;
-			}
-			else if (dealer.checkHand() == 17) {
+			} else if (dealer.checkHand() == 17) {
 				System.out.println("Dealer must stay..\nPlayer Wins!!s");
 				winner = true;// end game.. not really 'winner'
 				break;
-			}
-			else if (dealer.checkHand() == player.checkHand()) {
+			} else if (dealer.checkHand() == player.checkHand()) {
 				System.out.println("PUUshhhhhhh!");
 				winner = true;
 				break;
-			} 
-			else if (dealer.checkHand() > 17) {
+			} else if (dealer.checkHand() > 17) {
 				System.out.println("Over 17.. dealer must stay.\nPlayer wins!");
 				winner = true;
 				break;

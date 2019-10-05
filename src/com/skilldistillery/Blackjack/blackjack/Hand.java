@@ -8,7 +8,7 @@ import com.skilldistillery.Blackjack.common.Card;
 public abstract class Hand {
 
 	// F I E L D S
-	List<Card> cards;
+	 private List<Card> cards;
 	
 	
 	//C O N S T R U C T O R
@@ -26,6 +26,10 @@ public abstract class Hand {
 	
 	public Card getFirstCard() {
 		return cards.get(0);
+	}
+	
+	public List<Card> getCards() {
+		return this.cards;
 	}
 	
 	public abstract int getHandValue();
