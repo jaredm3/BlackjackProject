@@ -1,10 +1,6 @@
 package com.skilldistillery.Blackjack.blackjack;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.skilldistillery.Blackjack.common.Card;
-import com.skilldistillery.Blackjack.common.Deck;
 
 public class Dealer {
 
@@ -38,7 +34,6 @@ public class Dealer {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Dealer hand= ");
 		builder.append(hand);
-//		builder.append("]");
 		return builder.toString();
 	}
 	

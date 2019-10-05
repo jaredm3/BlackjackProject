@@ -11,7 +11,6 @@ public class BlackjackApp {
 		BlackjackApp app = new BlackjackApp();
 
 		System.out.println("Welcome to BLACKJACK\n");
-		
 
 		do {
 			app.launch(kb);

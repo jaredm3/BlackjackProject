@@ -27,17 +27,20 @@ public class BlackjackBrain {
 	}
 
 	public boolean checkWinnerBeforePlay() {
-		if (player.checkHand() == 21) {
+		if (player.getHand().isBlackJack()) {
 			System.out.println("Player BLACKJACK");
+			winner = true;
 			return true;
-		} else if (dealer.checkHand() == 21) {
+		} else if (dealer.getHand().isBlackJack()) {
 			System.out.println("Dealer BLACKJACK");
+			System.out.println(dealer);
+			winner = true;
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public boolean checkWinner() {
 		if (player.checkHand() == 21) {
 			System.out.println("Player BLACKJACK");
@@ -71,7 +74,7 @@ public class BlackjackBrain {
 
 	public void gamePlay(Scanner kb) {
 
-		while (!winner && !checkBust()) {
+		while (!winner) {
 			System.out.println("Hit or Stay? ");
 			String userHitStay = kb.nextLine();
 
@@ -81,36 +84,48 @@ public class BlackjackBrain {
 				System.out.println(player.getHand().toString());
 				System.out.println("Player hand: " + player.checkHand());
 
-				if (player.getHand().isBust()) {
-					System.out.println("Player BUST\nDealer wins");
-					//checkWinner();
-					//break;
-					winner = true;
-				}
-				else if (player.getHand().isBlackJack()) {
-					System.out.println("PLayer Wins! ?Blackjack?");
-					winner = true;
-				}
+				checkPlayerHand();
+//				if (player.getHand().isBust()) {
+//					System.out.println("Player BUST\nDealer wins");
+//					// checkWinner();
+//					// break;
+//					winner = true;
+//				} else if (player.getHand().isBlackJack()) {
+//					System.out.println("PLayer Wins! ?Blackjack?");
+//					winner = true;
+//				}
 				break;
 			case "stay":
 				System.out.println(dealer);
 				System.out.println("Dealer hand: " + dealer.checkHand());
+
+				if (dealer.getHand().isBlackJack()) {
+					System.out.println("21!! Dealer Wins! ?BlackJack?");
+					winner = true;// end game.. not really 'winner'
+					break;
+				}
 				
-				if (dealer.checkHand()>player.checkHand()) {
+				if (dealer.checkHand() > player.checkHand()) {
 					System.out.println("DEALERR wins!");
 					winner = true;
 					break;
 				}
-				
-				if (dealer.checkHand()==player.checkHand()) {
+
+				if (dealer.checkHand() == player.checkHand()) {
 					System.out.println("PUSHhhhhhh");
-					winner = true;//end game.. not really 'winner'
+					winner = true;// end game.. not really 'winner'
+					break;
+				}
+
+				if (dealer.checkHand() == 17) {
+					System.out.println("Dealer must stay..\nPlayer Wins!!s");
+					winner = true;// end game.. not really 'winner'
 					break;
 				}
 				
-				if (dealer.checkHand()==17) {
-					System.out.println("Dealer must stay..\nPlayer Wins!!s");
-					winner = true;//end game.. not really 'winner'
+				else if (dealer.checkHand() > 17) {
+					System.out.println("Over 17.. dealer must stay.\nPlayer wins!");
+					winner = true;
 					break;
 				}
 
@@ -118,38 +133,34 @@ public class BlackjackBrain {
 					dealer.addCardToHand(deck.dealCard());
 					System.out.println("Dealer hits..\n");
 					System.out.println(dealer);
-					
+
 					if (dealer.getHand().isBust()) {
 						System.out.println("Dealer BUSTSS! Player WINS!");
 						winner = true;
 						break;
 					}
-					
+
+					else if (dealer.checkHand() == 17) {
+						System.out.println("Dealer must stay..\nPlayer Wins!!s");
+						winner = true;// end game.. not really 'winner'
+						break;
+					}
+
 					else if (dealer.checkHand() > player.checkHand()) {
 						System.out.println("Dealer WINS!");
 						winner = true;
 						break;
-					}
-					else if (dealer.checkHand() == player.checkHand()) {
+					} else if (dealer.checkHand() == player.checkHand()) {
 						System.out.println("PUUshhhhhhh!");
 						winner = true;
 						break;
 					}
-//					else {
-//						if (player.checkHand() > dealer.checkHand()) {
-//							System.out.println("Player wins!");
-//							winner = true;
-//							break;
-//						} else if (player.checkHand() < dealer.checkHand()) {
-//							System.out.println("Dealer wins!");
-//							winner = true;
-//							break;
-//						} else if (player.checkHand() == dealer.checkHand()) {
-//							System.out.println("PUSHHHHHH");
-//							winner = true;
-//							break;
-//						}
-//					}
+					else if (dealer.checkHand() > 17) {
+						System.out.println("Over 17.. dealer must stay.\nPlayer wins!");
+						winner = true;
+						break;
+					}
+
 				}
 
 				break;
@@ -172,6 +183,18 @@ public class BlackjackBrain {
 			System.exit(0);
 		}
 
+	}
+	
+	public void checkPlayerHand() {
+		if (player.getHand().isBust()) {
+			System.out.println("Player BUST\nDealer wins");
+			// checkWinner();
+			// break;
+			winner = true;
+		} else if (player.getHand().isBlackJack()) {
+			System.out.println("PLayer Wins! ?Blackjack?");
+			winner = true;
+		}
 	}
 
 }
