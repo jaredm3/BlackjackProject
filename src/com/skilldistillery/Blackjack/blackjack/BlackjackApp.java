@@ -25,7 +25,4 @@ public class BlackjackApp {
 		brain.gamePlay(kb);
 	}
 
-	public void deal() {
-
-	}
 }

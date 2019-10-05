@@ -41,30 +41,8 @@ public class BlackjackBrain {
 		}
 	}
 
-	public boolean checkWinner() {
-		if (player.checkHand() == 21) {
-			System.out.println("Player BLACKJACK");
-			return true;
-		} else if (dealer.checkHand() == 21) {
-			System.out.println("Dealer BLACKJACK");
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public boolean getPlayAgain() {
 		return playAgain;
-	}
-
-	public boolean checkBust() {
-		if (player.checkHand() >= 21) {
-			return true;
-		} else if (dealer.checkHand() >= 21) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	public void showCards() {
