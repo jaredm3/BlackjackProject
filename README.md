@@ -4,7 +4,7 @@ Week 4 Homework Project for Skill Distillery
 
 ## Overview
 
-This program utilizes OOP principals to create and Blackjack. There are two
+This program utilizes OOP principals to create and play Blackjack. There are two
 packages used. One is a common package containing Card, Deck, Rank, and Suit.
 The other package is specific to Blackjack, and contains many Classes used
 for gameplay.
@@ -55,7 +55,7 @@ Play again?? y/n
 
 ### Gameplay with CardCounter
 
-If the user elects to play with the CardCounter, he/she will be able to hear
+If the user elects to play with the CardCounter, he/she will be able to see
 suggestions passed by CardCounter based on the count. The CardCounter counts
 cards based off the popular Hi-Low strategy. During gameplay, only one deck is
 used. Once fewer than 8 cards remain in the deck, a new deck is created.
@@ -89,7 +89,7 @@ After CardCounter's turn, the player is up and gameplay continues.
   multiple Classes that can be used for any card game.
 
   - Abstraction
-    The Class Hand is Abstract it my program because it implements an abstract
+    The Class Hand is abstract in my program because it implements an abstract
     method. The class BlackjackHand extends Hand and defines it's own method.
     This allows Hand to be used for multiple different games if created in the
     future.
@@ -98,7 +98,7 @@ After CardCounter's turn, the player is up and gameplay continues.
     Person. Player, Dealer, and CardCounter are all 'Persons' (children of Person),
     and incorporate most behaviors.
   - Encapsulation
-    All of the Classes have Private variables, as well as a few private methods.
+    All of the Classes have private variables, as well as a few private methods.
 
 2. Enums
   - Enums were very useful when designing the Card's suit and rank. Since it is
