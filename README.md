@@ -84,24 +84,24 @@ After CardCounter's turn, the player is up and gameplay continues.
 
 ## Technologies/Topics Applied
 
-1) Object Oriented Programming -
+1. Object Oriented Programming -
   The Blackjack program is designed with good OO structure in mind. There are
-multiple Classes that can be used for any card game.
+  multiple Classes that can be used for any card game.
 
-  *a) Abstraction
+  - Abstraction
     The Class Hand is Abstract it my program because it implements an abstract
     method. The class BlackjackHand extends Hand and defines it's own method.
     This allows Hand to be used for multiple different games if created in the
     future.
 
-  *b) Inheritance
+  - Inheritance
     The main example and use of Inheritance in this program is the parent class
     Person. Player, Dealer, and CardCounter are all 'Persons' (children of Person),
     and incorporate most behaviors.
 
-  *c) Encapsulation
+  - Encapsulation
     All of the Classes have Private variables, as well as a few private methods.
-**
+
 2) Enums
   Enums were very useful when designing the Card's suit and rank. Since it is
   defining a collection of constants, it worked very well.
