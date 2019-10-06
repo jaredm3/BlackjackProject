@@ -20,26 +20,26 @@ public class BlackjackBrain {
 	private boolean playAgain = false;
 	private boolean winner = false;
 
+	// C O N S T R U C T O R
 	public BlackjackBrain() {
 		deck = new Deck();
 		player = new Player("Player");
 		dealer = new Dealer("Dealer");
-		dealtCards = new ArrayList<>();
+		dealtCards = new ArrayList<>();// used by CardCounter
 		players = new ArrayList<>();
 		players.add(player);
 		players.add(dealer);
 	}
 
-	public void setUpGame() {
+	public void setUpGame() {// game with CardCounter
 		cardCountingPlayer = new CardCountingPlayer("CardCounter");
 		players.add(cardCountingPlayer);
 	}
 
 	public void dealCards() {
-
 		if (deck.checkDeckSize() <= 9) {
 			System.out.println("OUTA CARDS..\n");
-			System.out.println("Creating new deck..\n");// idkkkkkkkkk
+			System.out.println("Creating new deck..\n");
 			deck = new Deck();
 		}
 
@@ -74,9 +74,9 @@ public class BlackjackBrain {
 
 		for (Person p : players) {
 			if (p.getType().equals("Dealer")) {// instance of?
-				System.out.println("Dealer hand= [" + p.showOneCard() + ", xxxxxxx]");
+				System.out.println("Dealer hand= [" + p.showOneCard() + ", xxxxxxx]");// dealer hand
 			} else {
-				System.out.println(p + " " + p.getType() + " " + p.checkHand());
+				System.out.println(p + " " + p.getType() + " " + p.checkHand());// everyone else's hand
 			}
 		}
 		System.out.println();
@@ -84,9 +84,9 @@ public class BlackjackBrain {
 
 	public void gamePlay(Scanner kb) {
 
-		while (!winner) {
+		while (!winner) {// game start
 
-			if (players.size() == 3) {
+			if (players.size() == 3) {// CardCounter game play
 				if (cardCountingPlayer instanceof CardCountingPlayer) {
 					((CardCountingPlayer) cardCountingPlayer).playCardCounter(dealtCards, cardCountingPlayer.getHand(),
 							deck);
@@ -138,7 +138,6 @@ public class BlackjackBrain {
 			kb.close();
 			System.exit(0);
 		}
-
 	}
 
 	public void checkPlayerHand() {

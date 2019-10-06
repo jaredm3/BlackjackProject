@@ -7,14 +7,13 @@ import com.skilldistillery.Blackjack.common.Deck;
 
 public class CardCountingPlayer extends Person {
 
-	// F I E L D S
 
 	// C O N S T R U C T O R
 	public CardCountingPlayer(String type) {
 		super(type);
 	}
 
-	public int countCards(List<Card> cards) {
+	private int countCards(List<Card> cards) {
 		int cardCount = 0;
 		for (Card c : cards) {
 			if (c.getValue() <= 6) {
@@ -25,7 +24,6 @@ public class CardCountingPlayer extends Person {
 				cardCount--;
 			}
 		}
-
 		return cardCount;
 	}
 
@@ -50,7 +48,7 @@ public class CardCountingPlayer extends Person {
 			checkHand2(myHand);
 		}
 
-		if (myHand.getHandValue() < 15 && cardCount <= 0 && !myHand.isBust() && !myHand.isBlackJack()) {// hit
+		if (myHand.getHandValue() < 15 && cardCount <= 0 && checkHand2(myHand)) {// hit
 			Card cHolder = deck.dealCard();
 			playedCards.add(cHolder);
 			cardCount += countCards(playedCards);

@@ -11,7 +11,7 @@ public class Deck {
 
 	// C O N S T R U C T O R
 	public Deck() {
-		cards = new ArrayList<>(52); 
+		cards = new ArrayList<>(52);
 		cards = makeDeck();
 		shuffle();
 	}
@@ -25,21 +25,19 @@ public class Deck {
 			}
 		}
 
-		// System.out.println(cardDeck.size());
 		return cardDeck;
 	}
 
 	public void shuffle() {
 		Collections.shuffle(cards);
 	}
-	
+
 	public Card dealCard() {
 		return cards.remove(0);
 	}
-	
+
 	public int checkDeckSize() {
 		return cards.size();
 	}
-	
 
 }

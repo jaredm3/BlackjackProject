@@ -5,7 +5,7 @@ import com.skilldistillery.Blackjack.common.Card;
 public class BlackjackHand extends Hand {
 
 	public BlackjackHand() {
-		
+
 	}
 
 	@Override
@@ -15,40 +15,28 @@ public class BlackjackHand extends Hand {
 		for (Card c : getCards()) {
 			cardValueHolder += c.getValue();
 		}
-		
+
 		return cardValueHolder;
 	}
 
 	public boolean isBlackJack() {
 
-		if (getHandValue()==21) {
+		if (getHandValue() == 21) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-		
+
 	}
 
 	public boolean isBust() {
-		
-		if (getHandValue()>21) {
+
+		if (getHandValue() > 21) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-		
+
 	}
-//
-//	public boolean isHard() {
-//
-//		return false;
-//	}
-//	
-//	public boolean isSoft() {
-//
-//		return false;
-//	}
 
 }
