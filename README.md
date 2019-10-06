@@ -88,16 +88,16 @@ After CardCounter's turn, the player is up and gameplay continues.
   The Blackjack program is designed with good OO structure in mind. There are
   multiple Classes that can be used for any card game.
 
-  - Abstraction
+  - Abstraction - 
     The Class Hand is abstract in my program because it implements an abstract
     method. The class BlackjackHand extends Hand and defines it's own method.
     This allows Hand to be used for multiple different games if created in the
     future.
-  - Inheritance
+  - Inheritance - 
     The main example and use of Inheritance in this program is the parent class
     Person. Player, Dealer, and CardCounter are all 'Persons' (children of Person),
     and incorporate most behaviors.
-  - Encapsulation
+  - Encapsulation - 
     All of the Classes have private variables, as well as a few private methods.
 
 2. Enums
