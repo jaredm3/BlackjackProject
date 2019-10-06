@@ -93,12 +93,10 @@ After CardCounter's turn, the player is up and gameplay continues.
     method. The class BlackjackHand extends Hand and defines it's own method.
     This allows Hand to be used for multiple different games if created in the
     future.
-
   - Inheritance
     The main example and use of Inheritance in this program is the parent class
     Person. Player, Dealer, and CardCounter are all 'Persons' (children of Person),
     and incorporate most behaviors.
-
   - Encapsulation
     All of the Classes have Private variables, as well as a few private methods.
 
