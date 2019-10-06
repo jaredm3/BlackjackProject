@@ -100,10 +100,10 @@ After CardCounter's turn, the player is up and gameplay continues.
   - Encapsulation
     All of the Classes have Private variables, as well as a few private methods.
 
-2) Enums
-  Enums were very useful when designing the Card's suit and rank. Since it is
-  defining a collection of constants, it worked very well.
+2. Enums
+  - Enums were very useful when designing the Card's suit and rank. Since it is
+    defining a collection of constants, it worked very well.
 
-3) UML Diagrams
-  Since this program manipulates and calls many classes, a UML diagram
+3. UML Diagrams
+ - Since this program manipulates and calls many classes, a UML diagram
   was very helpful.
